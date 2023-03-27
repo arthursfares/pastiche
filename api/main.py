@@ -1,9 +1,9 @@
 from contextlib import asynccontextmanager
 
-import tensorflow as tf
 import numpy
+import tensorflow as tf
 from fastapi import FastAPI
-
+from pydantic import BaseModel
 
 ml_models = {}
 
