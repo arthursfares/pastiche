@@ -45,6 +45,29 @@ def preprocess_image(image, target_dimension):
     image = tf.image.resize_with_crop_or_pad(image, target_dimension, target_dimension)
     return image
 
+def predict_style(preprocessed_style_image):
+    interpreter = tf.lite.Interpreter(model_path=ml_models["style_predict_path"])
+    interpreter.allocate_tensors()
+    input_details = interpreter.get_input_details()
+    interpreter.set_tensor(input_details[0]["index"], preprocessed_style_image)
+    interpreter.invoke()
+    style_bottleneck = interpreter.tensor(
+        interpreter.get_output_details()[0]["index"]
+    )()
+    return style_bottleneck
+
+def transform_style(style_bottleneck, preprocessed_content_image):
+    interpreter = tf.lite.Interpreter(model_path=ml_models["style_transform_path"])
+    input_details = interpreter.get_input_details()
+    interpreter.allocate_tensors()
+    interpreter.set_tensor(input_details[0]["index"], preprocessed_content_image)
+    interpreter.set_tensor(input_details[1]["index"], style_bottleneck)
+    interpreter.invoke()
+    stylized_image = interpreter.tensor(
+        interpreter.get_output_details()[0]["index"]
+    )()
+    return stylized_image
+
 @app.post("/images/")
 async def load_images(content: Image, style: Image):
     
