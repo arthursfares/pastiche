@@ -69,7 +69,7 @@ def transform_style(style_bottleneck, preprocessed_content_image):
     return stylized_image
 
 @app.post("/images/")
-async def load_images(content: ImageModel, style: ImageModel, content_blending_ratio: float = 0.0):
+async def transform_image_style(content: ImageModel, style: ImageModel, content_blending_ratio: float = 0.0):
     
     content_path = tf.keras.utils.get_file(content.file_name, content.url)
     style_path = tf.keras.utils.get_file(style.file_name, style.url)
