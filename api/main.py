@@ -69,7 +69,7 @@ def transform_style(style_bottleneck, preprocessed_content_image):
     return stylized_image
 
 @app.post("/images/")
-async def load_images(content: Image, style: Image):
+async def load_images(content: ImageModel, style: ImageModel, content_blending_ratio: float = 0.0):
     
     content_path = tf.keras.utils.get_file(content.file_name, content.url)
     style_path = tf.keras.utils.get_file(style.file_name, style.url)
@@ -80,7 +80,25 @@ async def load_images(content: Image, style: Image):
     preprocessed_content_image = preprocess_image(content_image, 384)
     preprocessed_style_image = preprocess_image(style_image, 256)
 
-    return {
-        "content": str(preprocessed_content_image.shape),
-        "style": str(preprocessed_style_image.shape)
-    }
+    style_bottleneck = predict_style(preprocessed_style_image)
+    style_bottleneck_content = predict_style(preprocess_image(content_image, 256))
+
+    # Define content blending ratio between [0..1].
+    # 0.0: 0% style extracts from content image.
+    # 1.0: 100% style extracted from content image.
+    if content_blending_ratio < 0.0 or content_blending_ratio > 1.0:
+        content_blending_ratio = 0.0
+        print("[!] content blend ratio should be between 0.0 and 1.0")
+        print("[!] reseting it to 0.0")
+
+    style_bottleneck_blended = content_blending_ratio * style_bottleneck_content \
+                                + (1 - content_blending_ratio) * style_bottleneck
+
+    stylized_image = transform_style(style_bottleneck_blended, preprocessed_content_image)
+    stylized_image = stylized_image[0]  # reduce the dimensionality of the array
+    stylized_image = Image.fromarray(stylized_image, "RGB")  # convert to PIL image
+    stylized_image_bytes = io.BytesIO()
+    stylized_image.save(stylized_image_bytes, format="JPEG")
+    stylized_image_bytes = stylized_image_bytes.getvalue()
+
+    return Response(content=stylized_image_bytes, media_type="image/jpeg")
