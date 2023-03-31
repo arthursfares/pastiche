@@ -37,8 +37,8 @@ async def transform_image_style(content: ImageModel, style: ImageModel, content_
     preprocessed_content_image = preprocess_image(content_image, 384)
     preprocessed_style_image = preprocess_image(style_image, 256)
 
-    style_bottleneck = predict_style(preprocessed_style_image)
-    style_bottleneck_content = predict_style(preprocess_image(content_image, 256))
+    style_bottleneck = predict_style(preprocessed_style_image, ml_models["style_predict_path"])
+    style_bottleneck_content = predict_style(preprocess_image(content_image, 256), ml_models["style_predict_path"])
 
     # Define content blending ratio between [0..1].
     # 0.0: 0% style extracts from content image.
