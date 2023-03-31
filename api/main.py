@@ -43,13 +43,12 @@ async def transform_image_style(content: ImageModel, style: ImageModel, content_
     # Define content blending ratio between [0..1].
     # 0.0: 0% style extracts from content image.
     # 1.0: 100% style extracted from content image.
-    if content_blending_ratio < 0.0 or content_blending_ratio > 1.0:
-        content_blending_ratio = 0.0
+    if content_blending_ratio.value < 0.0 or content_blending_ratio.value > 1.0:
+        content_blending_ratio.value = 0.0
         print("[!] content blend ratio should be between 0.0 and 1.0")
         print("[!] reseting it to 0.0")
 
-    style_bottleneck_blended = content_blending_ratio * style_bottleneck_content \
-                                + (1 - content_blending_ratio) * style_bottleneck
+    style_bottleneck_blended = content_blending_ratio.value * style_bottleneck_content + (1 - content_blending_ratio.value) * style_bottleneck
 
     stylized_image = transform_style(style_bottleneck_blended, preprocessed_content_image)
     stylized_image = stylized_image[0]  # reduce the dimensionality of the array
