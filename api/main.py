@@ -1,9 +1,11 @@
 import io
+import os
 from contextlib import asynccontextmanager
 
 import matplotlib.pyplot as plt
 import tensorflow as tf
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 
 from .image_processing import load_image, predict_style, preprocess_image, transform_style
