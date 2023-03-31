@@ -67,4 +67,11 @@ async def transform_image_style(content: ImageModel, style: ImageModel, content_
     plt.imsave(stylized_image_bytes, stylized_image, format="png")
     stylized_image_bytes = stylized_image_bytes.getvalue()
 
+    # delete the file from the cache
+    cache_dir = os.path.join(os.path.expanduser('~'), '.keras', 'datasets')
+    cache_content_file = os.path.join(cache_dir, content.file_name)
+    cache_style_file = os.path.join(cache_dir, style.file_name)
+    os.remove(cache_content_file)
+    os.remove(cache_style_file)
+
     return Response(content=stylized_image_bytes, media_type="image/png")
