@@ -36,7 +36,7 @@ async def root():
     return {"message": "Welcome to Pastiche 🖼️"}
 
 
-@app.post("/images/")
+@app.post("/transfer-style/")
 async def transform_image_style(content: ImageModel, style: ImageModel, content_blending_ratio: BlendingRatioModel):
     
     content_path = tf.keras.utils.get_file(content.file_name, content.url)
