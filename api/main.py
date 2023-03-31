@@ -18,11 +18,6 @@ async def lifespan(app: FastAPI):
     yield
     ml_models.clear()
 
-class ImageModel(BaseModel):
-    file_name: str | None = None
-    url: str
-
-
 app = FastAPI(lifespan=lifespan)
 
 @app.get("/")
