@@ -26,7 +26,7 @@ async def root():
 
 
 @app.post("/images/")
-async def transform_image_style(content: ImageModel, style: ImageModel, content_blending_ratio: float = 0.0):
+async def transform_image_style(content: ImageModel, style: ImageModel, content_blending_ratio: BlendingRatioModel):
     
     content_path = tf.keras.utils.get_file(content.file_name, content.url)
     style_path = tf.keras.utils.get_file(style.file_name, style.url)
