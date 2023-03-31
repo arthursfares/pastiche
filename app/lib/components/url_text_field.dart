@@ -30,7 +30,15 @@ class _UrlTextFieldState extends State<UrlTextField> {
     return TextFormField(
       controller: widget.urlController,
       focusNode: _urlFocusNode,
-      decoration: InputDecoration(labelText: widget.labelText),
+      decoration: InputDecoration(
+        labelText: widget.labelText,
+        floatingLabelStyle: const TextStyle(color: Colors.white),
+        labelStyle: const TextStyle(color: Colors.grey),
+        // focusColor: Colors.white,
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.white),
+        ),
+      ),
       keyboardType: TextInputType.url,
       textInputAction: TextInputAction.go,
       inputFormatters: [
