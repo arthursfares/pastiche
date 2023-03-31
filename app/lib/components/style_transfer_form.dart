@@ -88,8 +88,9 @@ class _StyleTransferFormState extends State<StyleTransferForm> {
                     height: 384.0,
                     width: 384.0,
                     child: Center(
-                      child: _resultImage ??
-                          Image.network(_placeholderAnimationUrl),
+                      child: _isLoading
+                          ? Image.network(_placeholderAnimationUrl)
+                          : _resultImage ?? const Text(""),
                     ),
                   ),
                 ],
