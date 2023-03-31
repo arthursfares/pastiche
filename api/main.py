@@ -50,11 +50,10 @@ async def transform_image_style(content: ImageModel, style: ImageModel, content_
 
     style_bottleneck_blended = content_blending_ratio.value * style_bottleneck_content + (1 - content_blending_ratio.value) * style_bottleneck
 
-    stylized_image = transform_style(style_bottleneck_blended, preprocessed_content_image)
-    stylized_image = stylized_image[0]  # reduce the dimensionality of the array
-    stylized_image = Image.fromarray(stylized_image, "RGB")  # convert to PIL image
+    stylized_image = transform_style(style_bottleneck_blended, preprocessed_content_image, ml_models["style_transform_path"])
+    stylized_image = stylized_image[0]
     stylized_image_bytes = io.BytesIO()
-    stylized_image.save(stylized_image_bytes, format="JPEG")
+    plt.imsave(stylized_image_bytes, stylized_image, format="png")
     stylized_image_bytes = stylized_image_bytes.getvalue()
 
-    return Response(content=stylized_image_bytes, media_type="image/jpeg")
+    return Response(content=stylized_image_bytes, media_type="image/png")
