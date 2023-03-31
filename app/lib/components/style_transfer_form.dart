@@ -55,7 +55,7 @@ class _StyleTransferFormState extends State<StyleTransferForm> {
                 children: [
                   const SizedBox(height: 32),
                   SizedBox(
-                    width: size.width / 3,
+                    width: size.width / 2.5,
                     child: UrlTextField(
                       urlController: _contentUrlController,
                       labelText: 'Content image URL',
@@ -63,7 +63,7 @@ class _StyleTransferFormState extends State<StyleTransferForm> {
                   ),
                   const SizedBox(height: 16),
                   SizedBox(
-                    width: size.width / 3,
+                    width: size.width / 2.5,
                     child: UrlTextField(
                       urlController: _styleUrlController,
                       labelText: 'Style image URL',
