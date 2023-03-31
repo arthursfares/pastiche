@@ -70,11 +70,18 @@ class _StyleTransferFormState extends State<StyleTransferForm> {
                     ),
                   ),
                   const SizedBox(height: 64),
-                  ElevatedButton(
-                    onPressed: _isLoading ? null : _submitForm,
-                    child: _isLoading
-                        ? const CircularProgressIndicator()
-                        : const Text('Submit'),
+                  SizedBox(
+                    width: 100,
+                    height: 100,
+                    child: ElevatedButton(
+                      onPressed: _isLoading ? null : _submitForm,
+                      style: ElevatedButton.styleFrom(
+                        shape: const CircleBorder(),
+                        backgroundColor: Colors.grey[800],
+                        foregroundColor: Colors.white,
+                      ),
+                      child: const Text('Submit'),
+                    ),
                   ),
                   const SizedBox(height: 64),
                   SizedBox(
