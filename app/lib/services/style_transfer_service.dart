@@ -3,6 +3,8 @@ import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 
 class StyleTransferService {
+  StyleTransferService();
+
   final apiUrl = 'http://127.0.0.1:8000/transfer-style/';
 
   Future<Uint8List> transferStyle(Map<String, dynamic> request) async {
