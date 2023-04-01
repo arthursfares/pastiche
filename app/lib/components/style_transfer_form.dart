@@ -1,4 +1,5 @@
-import 'package:app/components/style_transfer_service.dart';
+import 'package:app/services/style_transfer_service.dart';
+import 'package:app/components/output_section.dart';
 import 'package:app/components/url_text_field.dart';
 import 'package:flutter/material.dart';
 
