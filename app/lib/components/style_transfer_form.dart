@@ -44,56 +44,59 @@ class _StyleTransferFormState extends State<StyleTransferForm> {
 
     return Scaffold(
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Form(
-            key: _formKey,
-            child: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 32),
-                  SizedBox(
-                    width: size.width / 2.5,
-                    child: UrlTextField(
-                      urlController: _contentUrlController,
-                      labelText: 'Content image URL',
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    width: size.width / 2.5,
-                    child: UrlTextField(
-                      urlController: _styleUrlController,
-                      labelText: 'Style image URL',
-                    ),
-                  ),
-                  const SizedBox(height: 64),
-                  SizedBox(
-                    width: 100,
-                    height: 100,
-                    child: ElevatedButton(
-                      onPressed: _isLoading ? null : _submitForm,
-                      style: ElevatedButton.styleFrom(
-                        shape: const CircleBorder(),
-                        backgroundColor: Colors.grey[800],
-                        foregroundColor: Colors.white,
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: size.height / 6),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  children: [
+                    const Text(
+                      "Artistic Style Transfer",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
                       ),
-                      child: const Text('Submit'),
                     ),
-                  ),
-                  const SizedBox(height: 64),
-                  SizedBox(
-                    height: 384.0,
-                    width: 384.0,
-                    child: Center(
-                      child: _isLoading
-                          ? Image.network(_placeholderAnimationUrl)
-                          : _resultImage ?? const Text(""),
+                    SizedBox(height: size.height / 16),
+                    SizedBox(
+                      width: size.width / 3,
+                      child: UrlTextField(
+                        urlController: _contentUrlController,
+                        labelText: 'Content image URL',
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                    SizedBox(height: size.height / 64),
+                    SizedBox(
+                      width: size.width / 3,
+                      child: UrlTextField(
+                        urlController: _styleUrlController,
+                        labelText: 'Style image URL',
+                      ),
+                    ),
+                    SizedBox(height: size.height / 16),
+                    SizedBox(
+                      width: 100,
+                      height: 100,
+                      child: ElevatedButton(
+                        onPressed: _isLoading ? null : _submitForm,
+                        style: ElevatedButton.styleFrom(
+                          shape: const CircleBorder(
+                            side: BorderSide(color: Colors.white),
+                          ),
+                          backgroundColor: Colors.black,
+                          foregroundColor: Colors.white,
+                        ),
+                        child: const Text('SUBMIT'),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(width: 64),
+                OutputSection(isLoading: _isLoading, resultImage: _resultImage),
+              ],
             ),
           ),
         ),
