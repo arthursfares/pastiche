@@ -30,12 +30,18 @@ class _UrlTextFieldState extends State<UrlTextField> {
     return TextFormField(
       controller: widget.urlController,
       focusNode: _urlFocusNode,
+      cursorColor: Colors.white,
       decoration: InputDecoration(
         labelText: widget.labelText,
         floatingLabelStyle: const TextStyle(color: Colors.white),
         labelStyle: const TextStyle(color: Colors.grey),
-        // focusColor: Colors.white,
-        focusedBorder: const UnderlineInputBorder(
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.white),
+        ),
+        border: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.white),
+        ),
+        focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.white),
         ),
       ),
@@ -44,7 +50,7 @@ class _UrlTextFieldState extends State<UrlTextField> {
       inputFormatters: [
         FilteringTextInputFormatter.deny(
           // disallow spaces and backslashes
-          RegExp('[\\s\\\\]'), 
+          RegExp('[\\s\\\\]'),
         ),
         // limit input to 200 characters
         LengthLimitingTextInputFormatter(200),
