@@ -17,8 +17,6 @@ class _StyleTransferFormState extends State<StyleTransferForm> {
   final _styleUrlController = TextEditingController();
   bool _isLoading = false;
   Image? _resultImage;
-  final String _placeholderAnimationUrl =
-      "https://media.tenor.com/hofDex804NsAAAAj/slimer-pixel.gif";
 
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
