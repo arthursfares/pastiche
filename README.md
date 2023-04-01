@@ -23,3 +23,8 @@ flutter run app/lib/main.dart -d chrome
 ---
 
 Made based on this [tutorial](https://www.tensorflow.org/lite/examples/style_transfer/overview) 〜(￣▽￣〜)
+
+---
+
+### TODO
+- update CORS rules
